@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Family Travel Itinerary</title>
+  <meta name="description" content="Shared family flight itinerary" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="shell">
+    <header class="hero">
+      <div>
+        <p class="eyebrow">Shared Travel Plans</p>
+        <h1>Family Travel Itinerary</h1>
+        <p class="intro">A simple live view of upcoming and past flight days. Each card shows the full trip for that date. Tap or click a card to see all flight legs and check flight status.</p>
+      </div>
+      <div class="hero-meta">
+        <div class="meta-card">
+          <span class="meta-label">Today</span>
+          <strong id="todayText">—</strong>
+        </div>
+        <div class="meta-card">
+          <span class="meta-label">Trips</span>
+          <strong id="tripCount">0</strong>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section id="upcomingSection">
+        <h2 class="section-title">Upcoming Flights</h2>
+        <section id="tripList" class="trip-list" aria-live="polite"></section>
+      </section>
+
+      <section id="pastSection" class="past-section" hidden>
+        <h2 class="section-title">Previous Flights</h2>
+        <section class="legend" aria-label="Legend">
+          <span><i class="dot dot-past"></i>Past</span>
+        </section>
+        <section id="pastTripList" class="trip-list" aria-live="polite"></section>
+      </section>
+    </main>
+  </div>
+
+  <template id="tripTemplate">
+    <article class="trip-card">
+      <button class="trip-summary" type="button" aria-expanded="false">
+        <div class="trip-topline">
+          <span class="trip-date"></span>
+          <span class="trip-badge"></span>
+        </div>
+        <div class="route-line">
+          <div class="route-end">
+            <strong class="from-city"></strong>
+            <span class="from-code"></span>
+          </div>
+          <div class="route-center">
+            <div class="trip-center-meta">
+              <span class="trip-center-date"></span>
+              <span class="trip-center-badge"></span>
+            </div>
+            <div class="time-line">
+              <span class="depart-time"></span>
+              <span class="time-separator">to</span>
+              <span class="arrive-time"></span>
+            </div>
+          </div>
+          <div class="route-end route-end-right">
+            <strong class="to-city"></strong>
+            <span class="to-code"></span>
+          </div>
+        </div>
+      </button>
+      <div class="trip-details" hidden>
+        <div class="legs"></div>
+      </div>
+    </article>
+  </template>
+
+  <template id="legTemplate">
+    <div class="leg-card">
+      <div class="leg-main">
+        <div>
+          <div class="leg-flight"></div>
+          <div class="leg-route"></div>
+        </div>
+        <div class="leg-times"></div>
+      </div>
+      <div class="leg-actions">
+        <a class="status-link" target="_blank" rel="noopener noreferrer">Check status</a>
+      </div>
+    </div>
+  </template>
+
+  <script src="data/trips.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
