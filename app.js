@@ -33,6 +33,12 @@
     return 'upcoming';
   }
 
+  function getUpcomingBadgeLabel(dateStr) {
+    const offsetDays = getTripOffsetDays(dateStr);
+    if (offsetDays <= 0) return 'Upcoming';
+    return `Upcoming · ${offsetDays} day${offsetDays === 1 ? '' : 's'}`;
+  }
+
   function buildStatusUrl(flight) {
     const q = `${flight.airline} ${flight.flightNumber} flight status`;
     return `https://www.google.com/search?q=${encodeURIComponent(q)}`;
@@ -76,9 +82,9 @@
     node.classList.toggle('soon', state === 'soon');
 
     node.querySelector('.trip-date').textContent = formatDate(trip.date);
-    node.querySelector('.trip-badge').textContent = state === 'past' ? 'Past' : 'Upcoming';
+    node.querySelector('.trip-badge').textContent = state === 'past' ? 'Past' : getUpcomingBadgeLabel(trip.date);
     node.querySelector('.trip-center-date').textContent = formatDate(trip.date);
-    node.querySelector('.trip-center-badge').textContent = state === 'past' ? 'Past' : 'Upcoming';
+    node.querySelector('.trip-center-badge').textContent = state === 'past' ? 'Past' : getUpcomingBadgeLabel(trip.date);
     node.querySelector('.from-city').textContent = trip.summary.fromCity;
     node.querySelector('.from-code').textContent = `${trip.summary.fromIATA} · ${trip.summary.fromCountry}`;
     node.querySelector('.to-city').textContent = trip.summary.toCity;
@@ -112,5 +118,11 @@
 
   if (hasPastTrips) {
     pastSection.hidden = false;
+  }
+
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('./sw.js').catch(() => {});
+    });
   }
 })();

@@ -1,17 +1,29 @@
-# Family Travel Itinerary Site
+Family Travel Itinerary
 
 Files:
-- `index.html` — main page
-- `styles.css` — dark responsive styling
-- `app.js` — rendering logic, date sorting, past trip styling
-- `data/trips.js` — editable trip data blocks
+- index.html
+- styles.css
+- app.js
+- manifest.webmanifest
+- sw.js
+- data/trips.js
+- icon.png (place your 288x288 icon here in the site root)
 
-## Editing future trips
-Open `data/trips.js` and duplicate one trip object inside `window.TRIPS = [ ... ]`.
-Each object represents one trip day, and each flight leg is listed inside its `flights` array.
+GitHub Pages:
+1. Upload all files to your repository root or chosen folder.
+2. Make sure icon.png is placed in the same folder as index.html.
+3. Enable GitHub Pages.
+4. Open the site once in Safari/Chrome so the service worker and manifest are detected.
 
-Dates use `YYYY-MM-DD`.
-Times use 24-hour format `HH:MM`.
+Editing trips:
+- Open data/trips.js
+- Each trip is its own object block
+- Duplicate a block and adjust values for future trips
 
-## GitHub Pages
-Upload the full folder contents to your repo root (or docs folder if that is how your Pages site is configured).
+Notes:
+- Trips in the past are moved to the Previous Flights section automatically.
+- Trips today are highlighted green.
+- Trips within the next 3 days use a slightly lighter card color.
+- The Upcoming badge shows days remaining when the trip is still ahead.
+- Flight status links open a Google search for that specific flight.
+- All times are shown exactly as entered in local 24-hour format.
